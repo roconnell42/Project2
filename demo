@@ -1,1 +1,233 @@
 
+<?php
+
+//$x = 1;
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "aaq8"; // your ucid is your database name
+
+// if you want to connect to remote server, the following settings should be on
+
+//$servername = "sql2.njit.edu";// you need to put your assigned server name
+//$username = "aaq8";// your ucid
+//$password = "QChlv9Rd";// database password
+//$dbname = "aaq8"; // your ucid is your database name
+try {
+    $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    // set the PDO error mode to exception
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connected successfully"; 
+	echo "</br>";
+	
+	////////////////////////////////////////////
+	//run sql
+	//select all records from the database
+	$y=1;
+for ($y; $y < 4; $y++){
+	$current = $y;
+	//echo "delete from to do where id = $current" . " "; 
+	echo "this is line $y";
+	  echo '<form method="post" action="">';
+	 $teststring = '<input name="submit'."$y".'" type="submit" value='."$y".''.' />';
+	echo$teststring;
+			    echo '</form>';
+
+	//echo '<button type="submit" value="Add">Add</button>';
+	//echo '<button type="submit" value="Delete">Delete</button>';
+	echo"<br>";
+	
+	
+	
+	
+	
+			
+		//   echo '<form method="post" action="">';
+		       
+		//  echo'      <input name="submit" type="submit" value="Calculate" />';
+		//  echo'      <input name="TEST1" type="submit" value="TEST2" />';
+
+		//    echo '</form>';
+	
+	}
+		if(isset($_POST['submit1'])){
+				echo'submitTEst1';
+				$input_id = 3;
+	
+	$query = 'select * from accounts where id < :account_id';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>email</th>";
+	 echo "<th>name</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[1]."</td>";
+	 echo "<td>".$record[2]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
+				
+			}
+			if(isset($_POST['submit2'])){
+				echo'submitTEst2';
+				$input_id = 3;
+	
+	$query = 'select * from accounts where id < :account_id';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>email</th>";
+	 echo "<th>name</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[1]."</td>";
+	 echo "<td>".$record[2]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
+			}
+			if(isset($_POST['submit3'])){
+				echo'submitTEst3';
+				$input_id = 4;
+	
+	$query = 'select * from accounts where id < :account_id';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>email</th>";
+	 echo "<th>name</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[1]."</td>";
+	 echo "<td>".$record[2]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
+			}
+			if(isset($_POST['TEST'])){
+				echo'TEST';
+			}
+	
+	/*$input_id = 6;
+	
+	$query = 'select * from accounts where id < :account_id';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>email</th>";
+	 echo "<th>name</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[1]."</td>";
+	 echo "<td>".$record[2]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";*/
+
+	
+    }
+catch(PDOException $e)
+    {
+    echo "Connection failed: " . $e->getMessage();
+    }
+
+
+
+?>
