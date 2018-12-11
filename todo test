@@ -3,30 +3,31 @@
 	$errors = "";
 
 	
-	$db = mysqli_connect("localhost", "root", "", "mjb78");
+	$db = mysqli_connect("localhost", "root", "", "mjb78") or die("Error:" .mysqli_error($db));
 
 		if (isset($_POST['submit'])) {
 		
-			$task = $_POST['message'];
+			$task = mysqli_real_escape_string($db,$_POST['message']);
 			$sql = "INSERT INTO todos (message) VALUES ('$task')";
-			mysqli_query($db, $sql);
+			mysqli_query($db, $sql);		
 			header('location: index.php');
 		}
 		
 
 	if (isset($_GET['del_task'])) {
 	$id = $_GET['del_task'];
-
-	mysqli_query($db, "DELETE FROM todos WHERE id=".$id);
+	$id = mysqli_real_escape_string($db,$id);
+	mysqli_query($db, "DELETE FROM todos WHERE id='$id'");
 	header('location: index.php');
 }
 
 ?>
 
 
-
-<html>
+<!doctype html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8"
 	<title>ToDo List Application PHP and MySQL</title>
 
 
@@ -34,7 +35,7 @@
 </head>
 <body>
 	<div class="heading">
-		<h2 style="font-style: 'Hervetica';">ToDo List </h2>
+		<h2 style="font-style: 'Helvetica';">ToDo List </h2>
 	</div>
 	<form action="add.php">
     
