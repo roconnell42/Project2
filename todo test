@@ -1,12 +1,14 @@
-
+<html>			
+<script type = "text/javascript" src = "hw2-7.js"> </script>
 <?php
-
+//include 'add.php'; 
 //$x = 1;
 $servername = "localhost";
 $username = "root";
 $password = "";
 $dbname = "aaq8"; // your ucid is your database name
-
+session_start();
+echo  $_SESSION["Email"]; 
 // if you want to connect to remote server, the following settings should be on
 
 //$servername = "sql2.njit.edu";// you need to put your assigned server name
@@ -23,23 +25,83 @@ try {
 	////////////////////////////////////////////
 	//run sql
 	//select all records from the database
-	$y=1;
-for ($y; $y < 4; $y++){
-	$current = $y;
+	$y=0;
+$query = 'select * from todos where isdone = 0 AND owneremail = :email';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':email', $_SESSION["Email"]);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	$tablecount = count($results);
+	$tablecount2 = $tablecount + 1;
+
+//for ($y; $y < $tablecount2; $y++){
+	//$current = $y;
 	//echo "delete from to do where id = $current" . " "; 
+		echo "<br>". 'This is todo list';
+	$query = 'select * from todos where isdone = 0 AND owneremail = :email';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':email', $_SESSION["Email"]);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+for ($y; $y < $tablecount2; $y++){
+	$current = $y;
+	$x = count($results);
+	//echo count($results)."</br>";
+	$i = 0;
 	echo "this is line $y";
 	  echo '<form method="post" action="">';
-	 $teststring = '<input name="submit'."$y".'" type="submit" value='."$y".''.' />';
-	echo$teststring;
-			    echo '</form>';
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>Task</th>";
+	 echo "<th>Due Date</th>";
 
-	//echo '<button type="submit" value="Add">Add</button>';
-	//echo '<button type="submit" value="Delete">Delete</button>';
-	echo"<br>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+		//for ($y; $y < $tablecount2; $y++){
+	//$current = $y;
+		$button1 = '<input name="submit'."$y".'" type="submit" value='.'submit'."$y".''.' />';
+	//echo$button1;
+	$button5 = '<input name="Add'."$y".'" type="submit" value='.'Add'."$y".''.' />'; 
+
+	$button2 = '<input name="Delete'."$y".'" type="submit" value='.'Delete'."$y".''.' />'; 
+	$button3 = '<input name="Edit'."$y".'" type="submit" value='.'Edit'."$y".''.' />'; 
+	$button4 = '<input name="ToggleComplete'."$y".'" type="submit" value='.'Complete'."$y".''.' />'; 
+	
+
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[5]."</td>";
+	 
+	 echo "<td>".$record[4]."</td>";
+	 echo "<td>". $button5. "</td>";
+	echo"<td>".$button2."</td>";
+	echo"<td>".$button3."</td>";
+	echo"<td>".$button4."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
 	
 	
 	
-	
+		//$submittxt2 = "'"."$submittxt"."'";
+
 	
 			
 		//   echo '<form method="post" action="">';
@@ -49,9 +111,12 @@ for ($y; $y < 4; $y++){
 
 		//    echo '</form>';
 	
-	}
-		if(isset($_POST['submit1'])){
-				echo'submitTEst1';
+	
+	//if(isset($_POST['submit'])
+
+		echo 'submit'. $y . "aaaaaaaaaaaaaa"; 
+		if(isset($_POST['submit'.$y])){
+				echo'submitTEst1'. "<br>";
 				$input_id = 3;
 	
 	$query = 'select * from accounts where id < :account_id';
@@ -68,7 +133,7 @@ for ($y; $y < 4; $y++){
 	}
 
 	$x = count($results);
-	echo count($results)."</br>";
+	//echo count($results)."</br>";
 	$i = 0;
 			echo "<table>";
     echo "<tr>";
@@ -93,8 +158,10 @@ for ($y; $y < 4; $y++){
 		     echo "</table>";
 				
 			}
-			if(isset($_POST['submit2'])){
-				echo'submitTEst2';
+			
+
+	/*if(isset($_POST['submit2'])){
+		echo'submitTEst2';
 				$input_id = 3;
 	
 	$query = 'select * from accounts where id < :account_id';
@@ -176,12 +243,25 @@ for ($y; $y < 4; $y++){
 	  
 		}
 		     echo "</table>";
-			}
+			}*/
 			if(isset($_POST['TEST'])){
 				echo'TEST';
 			}
+			
+		if(isset($_POST['Delete2'])){
+				echo'Delete2'. "<br>";
+				$input_id = 3;
+	
+	$query = 'DELETE FROM accounts WHERE id = :account_id';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
+	
+//	$results = $statement->fetchAll();
+	$statement->closeCursor();
 	
 	/*$input_id = 6;
+	DELETE FROM products WHERE (categoryID, productCode, productName,listPrice) VALUES  ( :id, :code, :name, :listPrice )
 	
 	$query = 'select * from accounts where id < :account_id';
 	$statement = $conn->prepare($query);
@@ -220,9 +300,92 @@ for ($y; $y < 4; $y++){
 	  
 		}
 		     echo "</table>";*/
-
+		}
+			if(isset($_POST['Add2'])){
+				echo"Add2 is clicked" . "<br>";
+				header('Location: http://localhost/add.php');
+			}
+}
+	$query = 'select * from accounts where id > 0';
+	$statement = $conn->prepare($query);
+	//$statement->bindValue(':account_id', $input_id);
+	$statement->execute();
 	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>email</th>";
+	 echo "<th>name</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[1]."</td>";
+	 echo "<td>".$record[2]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
+	echo "<br>". 'This is todo list';
+	$query = 'select * from todos where isdone = 0 AND owneremail = :email';
+	$statement = $conn->prepare($query);
+	$statement->bindValue(':email', $_SESSION["Email"]);
+	$statement->execute();
+	
+	$results = $statement->fetchAll();
+	$statement->closeCursor();
+	
+	
+	foreach($results as $record){
+		
+	}
+
+	$x = count($results);
+	//echo count($results)."</br>";
+	$i = 0;
+			echo "<table>";
+    echo "<tr>";
+     echo "<th>Task</th>";
+	 echo "<th>Due Date</th>";
+
+    echo "</tr>";
+    // echo "</table>";
+		foreach($results as $record){ 
+          echo "<tr>";
+    // echo "<tr>";
+     echo "<td>".$record[5]."</td>";
+	 echo "<td>".$record[4]."</td>";
+
+    echo "</tr>";
+    // echo "</table>";
+		  //echo  " <td>$results[$x].' '.$results[$x].' '.$results[$x].</br></td> ";
+
+     
+	  
+		}
+		     echo "</table>";
+			
+echo '<button type="button" onclick="Logout()">Logout</button>';
+
     }
+
 catch(PDOException $e)
     {
     echo "Connection failed: " . $e->getMessage();
@@ -231,3 +394,4 @@ catch(PDOException $e)
 
 
 ?>
+</html>			
