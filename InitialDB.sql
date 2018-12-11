@@ -18,6 +18,8 @@ CREATE TABLE  `accounts` (
   `lname` varchar(30) DEFAULT NULL,
   `date` date DEFAULT NULL,
   `password` varchar(30) DEFAULT NULL,
+  `college` varchar(30) DEFAULT NULL,
+  `major` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
 
